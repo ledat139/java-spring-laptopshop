@@ -1,20 +1,24 @@
 package vn.tdat.laptopshop.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String email;
     private String password;
     private String fullName;
+    private String address;
     private String phone;
 
     public long getId() {
         return id;
-    }
-
-    @Override
-    public String toString() {
-        return "User [id=" + id + ", email=" + email + ", password=" + password + ", fullName=" + fullName + ", phone="
-                + phone + "]";
     }
 
     public void setId(long id) {
@@ -45,6 +49,14 @@ public class User {
         this.fullName = fullName;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -52,4 +64,11 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", email=" + email + ", password=" + password + ", fullName=" + fullName
+                + ", address=" + address + ", phone=" + phone + "]";
+    }
+
 }

@@ -15,7 +15,7 @@
 </head>
 <body>
     <h1>
-        ${eric} 
+        hello hello
     </h1>
     <button class="btn btn-success">gửi</button>
 </body>
