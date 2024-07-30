@@ -86,5 +86,7 @@ public class UserController {
         this.userService.deleteUser(TDat.getId());
         return "redirect:/admin/user";
     }
+    
+    
 
 }
