@@ -10,7 +10,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 <meta name="description" content="" />
                 <meta name="author" content="" />
-                <title>Dashboard - Order</title>
+                <title>Dashboard - Product</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
             </head>
@@ -22,29 +22,11 @@
                             <div id="layoutSidenav_content">
                                 <main>
                                     <div class="container-fluid px-4">
-                                        <h1 class="mt-4">User Management</h1>
+                                        <h1 class="mt-4">Product</h1>
                                         <ol class="breadcrumb mb-4">
-                                            <li class="breadcrumb-item active"><a href="/admin">Dashboard</a> / User
+                                            <li class="breadcrumb-item active"><a href="/admin">Dashboard</a> / Product
                                             </li>
                                         </ol>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <h3>Delete user with ID: ${id}</h3>
-                                                <hr>
-                                                <div class="alert alert-danger">
-                                                    Are you sure to delete this user ?
-                                                </div>
-                                                <form:form method="post" action="/admin/user/delete"
-                                                    modelAttribute="deleteUser">
-                                                    <div class="mb-3" style="display: none">
-                                                        <label class="form-label">Id</label>
-                                                        <form:input type="text" class="form-control" path="id"
-                                                            value="${id}" />
-                                                    </div>
-                                                    <button class="btn btn-danger">Confirm</button>
-                                                </form:form>
-                                            </div>
-                                        </div>
                                     </div>
                                 </main>
                                 <%@ include file="../layout/footer.jsp" %>
