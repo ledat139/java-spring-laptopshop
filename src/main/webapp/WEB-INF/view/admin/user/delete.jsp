@@ -22,7 +22,7 @@
                             <div id="layoutSidenav_content">
                                 <main>
                                     <div class="container-fluid px-4">
-                                        <h1 class="mt-4">User Management</h1>
+                                        <h2 class="mt-4">User Management</h2>
                                         <ol class="breadcrumb mb-4">
                                             <li class="breadcrumb-item active"><a href="/admin">Dashboard</a> / User
                                             </li>
