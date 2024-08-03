@@ -4,15 +4,19 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import vn.tdat.laptopshop.domain.Role;
 import vn.tdat.laptopshop.domain.User;
+import vn.tdat.laptopshop.repository.RoleRepositoty;
 import vn.tdat.laptopshop.repository.UserRepository;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final RoleRepositoty roleRepositoty;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, RoleRepositoty roleRepositoty) {
         this.userRepository = userRepository;
+        this.roleRepositoty = roleRepositoty;
     }
 
     public User handleSaveUser(User TDat) {
@@ -37,6 +41,10 @@ public class UserService {
 
     public void deleteUser(long id) {
         this.userRepository.deleteById(id);
+    }
+
+    public Role getRoleByName(String name) {
+        return this.roleRepositoty.findByName(name);
     }
 
 }
