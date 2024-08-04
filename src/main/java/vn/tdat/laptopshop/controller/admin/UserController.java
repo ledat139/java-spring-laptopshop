@@ -32,14 +32,6 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/")
-    public String getHomePage(Model model) {
-        List<User> arrUser = this.userService.getAllUsersByEmail("tdat@123");
-        System.out.println(arrUser);
-        model.addAttribute("eric", "test");
-        return "hello";
-    }
-
     @GetMapping("/admin/user")
     public String getUserPage(Model model) {
         List<User> users = this.userService.getAllUsers();
