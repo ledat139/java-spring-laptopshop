@@ -20,6 +20,9 @@ public class UploadService {
     }
 
     public String handleUploadFile(MultipartFile file, String targetFile) {
+        if (file.isEmpty()) {
+            return "";
+        }
         byte[] bytes;
         String finalName = "";
         try {

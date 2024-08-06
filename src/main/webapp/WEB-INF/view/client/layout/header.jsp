@@ -2,7 +2,7 @@
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
             <!-- Navbar start -->
-            <div class="container-fluid fixed-top">
+            9<div class="container-fluid fixed-top shadow">
                 <div class="container px-0">
                     <nav class="navbar navbar-light bg-white navbar-expand-xl">
                         <a href="/" class="navbar-brand">
