@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -62,5 +63,62 @@ public class ProductController {
         System.out.println("run here" + product);
         return "redirect:/admin/product";
 
+    }
+
+    @GetMapping("/admin/product/{id}")
+    public String getProductDetail(Model model, @PathVariable long id) {
+        Product product = this.productService.getProductById(id);
+        model.addAttribute("product", product);
+
+        return "admin/product/detail";
+    }
+
+    @GetMapping("/admin/product/update/{id}")
+    public String getUpdateProductPage(Model model, @PathVariable long id) {
+        Product product = this.productService.getProductById(id);
+        model.addAttribute("product", product);
+        return "/admin/product/update";
+    }
+
+    @PostMapping("/admin/product/update")
+    public String updateProductPage(Model model, @ModelAttribute("product") @Valid Product product,
+            BindingResult updateProductBindingResult,
+            @RequestParam("inputFile") MultipartFile file) {
+        Product updateProduct = this.productService.getProductById(product.getId());
+        List<FieldError> errors = updateProductBindingResult.getFieldErrors();
+        for (FieldError error : errors) {
+            System.out.println(error.getField() + " - " + error.getDefaultMessage());
+        }
+
+        if (updateProductBindingResult.hasErrors()) {
+            return "/admin/product/update";
+        }
+        updateProduct.setName(product.getName());
+        updateProduct.setPrice(product.getPrice());
+        updateProduct.setDetailDesc(product.getDetailDesc());
+        updateProduct.setShortDesc(product.getShortDesc());
+        updateProduct.setQuantity(product.getQuantity());
+        updateProduct.setFactory(product.getFactory());
+        updateProduct.setTarget(product.getTarget());
+        updateProduct.setSold(product.getSold());
+        String productImg = this.uploadService.handleUploadFile(file, "product");
+        if (productImg != "")
+            updateProduct.setImage(productImg);
+        this.productService.createProduct(updateProduct);
+        System.out.println("run here" + updateProduct);
+        return "redirect:/admin/product";
+    }
+
+    @GetMapping("/admin/product/delete/{id}")
+    public String getDeleteProductPage(Model model, @PathVariable long id) {
+        model.addAttribute("product", new Product());
+        model.addAttribute("id", id);
+        return "admin/product/delete";
+    }
+
+    @PostMapping("/admin/product/delete")
+    public String deleteProduct(Model model, @ModelAttribute("product") Product product) {
+        this.productService.deleteById(product.getId());
+        return "redirect:/admin/product";
     }
 }

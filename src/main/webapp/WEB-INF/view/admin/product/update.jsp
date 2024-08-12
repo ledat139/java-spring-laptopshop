@@ -10,13 +10,20 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 <meta name="description" content="" />
                 <meta name="author" content="" />
-                <title>Dashboard - Product</title>
+                <title>Update - Product</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
                 <script>
                     $(document).ready(() => {
                         const avatarFile = $("#imgFile");
+                        const orgImage = "${product.image}"
+                        if (orgImage) {
+                            const urlImage = "/img/product/" + orgImage;
+                            $("#imgPreview").attr("src", urlImage);
+                            $("#imgPreview").css({ "display": "block" });
+                        }
+
                         avatarFile.change(function (e) {
                             const imgURL = URL.createObjectURL(e.target.files[0]);
                             $("#imgPreview").attr("src", imgURL);
@@ -39,15 +46,18 @@
                                             </li>
                                             <li class="mx-2"> / <a class="mx-2" href="/admin/product"> Product </a> /
                                             </li>
-                                            <li> Create</li>
+                                            <li>Update</li>
                                         </ol>
                                         <div class="row">
                                             <div class="col-md-6 col-12 mx-auto">
-                                                <h3>Create a product</h3>
+                                                <h3>Update a product</h3>
                                                 <hr>
-                                                <form:form method="post" action="/admin/product/create"
-                                                    modelAttribute="newProduct" class="row"
-                                                    enctype="multipart/form-data">
+                                                <form:form method="post" action="/admin/product/update"
+                                                    modelAttribute="product" class="row" enctype="multipart/form-data">
+                                                    <div class="mb-3 col-12 col-md-6" style="display: none;">
+                                                        <label class="form-label">Id:</label>
+                                                        <form:input type="text" class="form-control" path="id" />
+                                                    </div>
                                                     <div class="mb-3 col-12 col-md-6">
                                                         <c:set var="errorName">
                                                             <form:errors path="name" class="invalid-feedback" />
@@ -123,11 +133,11 @@
                                                             accept=".png, .jpg, .jpeg" id="imgFile" name="inputFile">
                                                     </div>
                                                     <div class="col-12 mb-3">
-                                                        <img style="max-height: 250px; display: none;" src=""
-                                                            alt="img preview" id="imgPreview">
+                                                        <img style="max-height: 250px; display: none;" alt="img preview"
+                                                            id="imgPreview">
                                                     </div>
-                                                    <div class="col-12">
-                                                        <form:button class="btn btn-primary" type="submit">Create
+                                                    <div class=" col-12">
+                                                        <form:button class="btn btn-warning" type="submit">Update
                                                         </form:button>
                                                     </div>
                                                 </form:form>

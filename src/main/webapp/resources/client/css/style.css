@@ -306,9 +306,11 @@
 }
 
 .fruite .fruite-item .fruite-img {
+    height: 60%;
     overflow: hidden;
     transition: 0.5s;
     border-radius: 10px 10px 0 0;
+    box-shadow: 0px -3px 50px -10px #c1c1c1;
 }
 
 .fruite .fruite-item .fruite-img img {
@@ -317,6 +319,10 @@
 
 .fruite .fruite-item .fruite-img img:hover {
     transform: scale(1.3);
+}
+
+.fruit-content{
+    height: 40%;
 }
 /*** Fruits End ***/
 
