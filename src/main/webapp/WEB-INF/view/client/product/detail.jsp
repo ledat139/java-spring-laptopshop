@@ -71,11 +71,20 @@
                         </div>
 
                         <!-- Single Product Start -->
-                        <div class="container-fluid py-5 mt-5">
+                        <div class="container-fluid py-5 mt-2">
                             <div class="container py-5">
                                 <div class="row g-4 mb-5">
                                     <div class="col-lg-8 col-xl-9">
                                         <div class="row g-4">
+                                            <div>
+                                                <nav aria-label="breadcrumb">
+                                                    <ol class="breadcrumb">
+                                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                                        <li class="breadcrumb-item active" aria-current="page">Product detail
+                                                        </li>
+                                                    </ol>
+                                                </nav>
+                                            </div>
                                             <div class="col-lg-6">
                                                 <div class="border rounded">
                                                     <a href="#">
@@ -90,7 +99,7 @@
                                                 <h5 class="fw-bold mb-3">
                                                     <fmt:formatNumber type="number" value="${product.price}" /> đ
                                                 </h5>
-                                               
+
                                                 <div class="d-flex mb-4">
                                                     <i class="fa fa-star text-secondary"></i>
                                                     <i class="fa fa-star text-secondary"></i>
@@ -99,7 +108,7 @@
                                                     <i class="fa fa-star"></i>
                                                 </div>
                                                 <p class="mb-4">${product.shortDesc}</p>
-                                                
+
                                                 <div class="input-group quantity mb-5" style="width: 100px;">
                                                     <div class="input-group-btn">
                                                         <button
@@ -170,8 +179,7 @@
                                                         </li>
                                                         <li>
                                                             <div class="d-flex justify-content-between fruite-name">
-                                                                <a href="#"><i
-                                                                        class="fas fa-apple-alt me-2"></i>MSI</a>
+                                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>MSI</a>
                                                                 <span>(8)</span>
                                                             </div>
                                                         </li>
