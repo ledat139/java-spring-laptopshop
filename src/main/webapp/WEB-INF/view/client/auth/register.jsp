@@ -33,10 +33,13 @@
                                                         <div class="col-md-6">
                                                             <div class="form-floating mb-3 mb-md-0">
                                                                 <c:set var="errorFirstName">
-                                                                    <form:errors path="firstName" class="invalid-feedback" />
+                                                                    <form:errors path="firstName"
+                                                                        class="invalid-feedback" />
                                                                 </c:set>
-                                                                <form:input class="form-control ${not empty errorFirstName ? 'is-invalid' : ''}" id="inputFirstName"
-                                                                    type="text" placeholder="Enter your first name"
+                                                                <form:input
+                                                                    class="form-control ${not empty errorFirstName ? 'is-invalid' : ''}"
+                                                                    id="inputFirstName" type="text"
+                                                                    placeholder="Enter your first name"
                                                                     path="firstName" />
                                                                 <label for="inputFirstName">First name</label>
                                                                 ${errorFirstName}
@@ -45,10 +48,13 @@
                                                         <div class="col-md-6">
                                                             <div class="form-floating">
                                                                 <c:set var="errorLastName">
-                                                                    <form:errors path="lastName" class="invalid-feedback" />
+                                                                    <form:errors path="lastName"
+                                                                        class="invalid-feedback" />
                                                                 </c:set>
-                                                                <form:input class="form-control ${not empty errorLastName ? 'is-invalid' : ''}" id="inputLastName"
-                                                                    type="text" placeholder="Enter your last name"
+                                                                <form:input
+                                                                    class="form-control ${not empty errorLastName ? 'is-invalid' : ''}"
+                                                                    id="inputLastName" type="text"
+                                                                    placeholder="Enter your last name"
                                                                     path="lastName" />
                                                                 <label for="inputLastName">Last name</label>
                                                                 ${errorLastName}
@@ -99,13 +105,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="mt-4 mb-0 col-12">
-                                                        <button class="btn btn-primary btn-block" type="submit">Create
-                                                            Account </button>
+                                                        <div class="d-grid"><button class="btn btn-primary btn-block"
+                                                                type="submit">Create
+                                                                Account </button></div>
                                                     </div>
                                                 </form:form>
                                             </div>
                                             <div class="card-footer text-center py-3">
-                                                <div class="small"><a href="login.html">Have an account? Go to login</a>
+                                                <div class="small"><a href="/login">Have an account? Go to login</a>
                                                 </div>
                                             </div>
                                         </div>
