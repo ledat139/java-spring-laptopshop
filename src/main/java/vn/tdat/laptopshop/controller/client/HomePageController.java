@@ -19,6 +19,8 @@ import vn.tdat.laptopshop.service.ProductService;
 import vn.tdat.laptopshop.service.UserService;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -34,7 +36,8 @@ public class HomePageController {
     }
 
     @GetMapping("/")
-    public String getHomePage(Model model) {
+    public String getHomePage(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
         List<Product> products = this.productService.getAllProduct();
         model.addAttribute("products", products);
         return "/client/homepage/show";
