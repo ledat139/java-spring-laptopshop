@@ -54,6 +54,9 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<OrderDetail> orderDetails;
 
+    @OneToMany(mappedBy = "product")
+    private List<CartDetail> cartDetails;
+
     public long getId() {
         return id;
     }
