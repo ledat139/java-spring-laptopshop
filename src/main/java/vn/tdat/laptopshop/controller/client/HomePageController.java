@@ -2,6 +2,7 @@ package vn.tdat.laptopshop.controller.client;
 
 import java.util.List;
 
+import org.springframework.boot.autoconfigure.jms.JmsProperties.Listener.Session;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import vn.tdat.laptopshop.domain.Product;
@@ -79,5 +81,14 @@ public class HomePageController {
     @GetMapping("/accessDenied")
     public String getAccessDeniedPage(Model model) {
         return "/client/auth/accessDenied";
+    }
+
+    @PostMapping("/add-product-to-cart/{id}")
+    public String addProductToCart(@PathVariable long id, HttpServletRequest request) {
+        long productId = id;
+        String email = (String) request.getSession(false).getAttribute("email");
+        this.productService.handleAddProductToCart(productId, email);
+
+        return "redirect:/";
     }
 }
