@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import vn.tdat.laptopshop.domain.Cart;
 import vn.tdat.laptopshop.domain.CartDetail;
 import vn.tdat.laptopshop.domain.Product;
@@ -41,7 +43,8 @@ public class ProductService {
         this.productRepository.deleteById(id);
     }
 
-    public void handleAddProductToCart(long productId, String email) {
+    public void handleAddProductToCart(long productId, String email, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
         // check user xem có cart chưa nếu chưa thì add cart
         User user = this.userService.getUserByEmail(email);
         if (user != null) {
@@ -54,13 +57,30 @@ public class ProductService {
             }
             // add card-detail
             Product product = this.productRepository.findById(productId);
+
             if (product != null) {
-                CartDetail cartDetail = new CartDetail();
-                cartDetail.setCart(cart);
-                cartDetail.setProduct(product);
-                cartDetail.setQuantity(1);
-                cartDetail.setPrice(product.getPrice());
-                this.cartDetailService.handleSaveCartDetail(cartDetail);
+                // tăng sum trong cart
+                cart.setSum(cart.getSum() + 1);
+                this.cartService.handleSaveCart(cart);
+                session.setAttribute("sum", cart.getSum());
+
+                // check xem có tồn tại product trong cartdetail chưa nếu có thì tăng quantity
+                CartDetail cartDetailCheck = this.cartDetailService.getCartDetailByCartAndProduct(cart, product);
+                if (cartDetailCheck != null) {
+                    cartDetailCheck.setQuantity(cartDetailCheck.getQuantity() + 1);
+                    cartDetailCheck.setCart(cart);
+                    this.cartDetailService.handleSaveCartDetail(cartDetailCheck);
+
+                }
+                // nếu không thì tạo mới cartdetail
+                else {
+                    CartDetail cartDetail = new CartDetail();
+                    cartDetail.setCart(cart);
+                    cartDetail.setProduct(product);
+                    cartDetail.setQuantity(1);
+                    cartDetail.setPrice(product.getPrice());
+                    this.cartDetailService.handleSaveCartDetail(cartDetail);
+                }
             }
         }
     }

@@ -39,7 +39,6 @@ public class HomePageController {
 
     @GetMapping("/")
     public String getHomePage(Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession();
         List<Product> products = this.productService.getAllProduct();
         model.addAttribute("products", products);
         return "/client/homepage/show";
@@ -87,8 +86,12 @@ public class HomePageController {
     public String addProductToCart(@PathVariable long id, HttpServletRequest request) {
         long productId = id;
         String email = (String) request.getSession(false).getAttribute("email");
-        this.productService.handleAddProductToCart(productId, email);
-
+        this.productService.handleAddProductToCart(productId, email, request);
         return "redirect:/";
+    }
+
+    @GetMapping("/cart")
+    public String getCartPage() {
+        return "/client/cart/show";
     }
 }
