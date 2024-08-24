@@ -103,13 +103,18 @@ public class HomePageController {
         User user = new User();
         user.setId(userId);
         Cart cart = this.cartService.getCardByUser(user);
-        List<CartDetail> cartDetails = cart.getCartDetails();
         double priceTotal = 0;
-        for (CartDetail cartDetail : cartDetails) {
-            priceTotal += cartDetail.getPrice() * cartDetail.getQuantity();
+        if (cart != null) {
+            List<CartDetail> cartDetails = cart.getCartDetails();
+
+            for (CartDetail cartDetail : cartDetails) {
+                priceTotal += cartDetail.getPrice() * cartDetail.getQuantity();
+            }
+            model.addAttribute("cartDetails", cartDetails);
         }
+
         model.addAttribute("priceTotal", priceTotal);
-        model.addAttribute("cartDetails", cartDetails);
+
         return "/client/cart/show";
     }
 }
