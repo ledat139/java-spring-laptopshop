@@ -1,5 +1,7 @@
 package vn.tdat.laptopshop.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import vn.tdat.laptopshop.domain.Cart;
@@ -21,5 +23,9 @@ public class CartDetailService {
 
     public CartDetail getCartDetailByCartAndProduct(Cart cart, Product product) {
         return this.cartDetailRepository.findByCartAndProduct(cart, product);
+    }
+
+    public List<CartDetail> getCartDetailByCart(Cart cart) {
+        return this.cartDetailRepository.findByCart(cart);
     }
 }

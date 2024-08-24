@@ -13,16 +13,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import vn.tdat.laptopshop.domain.Cart;
+import vn.tdat.laptopshop.domain.CartDetail;
 import vn.tdat.laptopshop.domain.Product;
 import vn.tdat.laptopshop.domain.Role;
 import vn.tdat.laptopshop.domain.User;
 import vn.tdat.laptopshop.domain.DTO.RegisterDTO;
+import vn.tdat.laptopshop.service.CartDetailService;
+import vn.tdat.laptopshop.service.CartService;
 import vn.tdat.laptopshop.service.ProductService;
 import vn.tdat.laptopshop.service.UserService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -30,11 +32,16 @@ public class HomePageController {
     private final ProductService productService;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final CartDetailService cartDetailService;
+    private final CartService cartService;
 
-    public HomePageController(ProductService productService, UserService userService, PasswordEncoder passwordEncoder) {
+    public HomePageController(ProductService productService, UserService userService, PasswordEncoder passwordEncoder,
+            CartDetailService cartDetailService, CartService cartService) {
         this.productService = productService;
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.cartDetailService = cartDetailService;
+        this.cartService = cartService;
     }
 
     @GetMapping("/")
@@ -91,7 +98,18 @@ public class HomePageController {
     }
 
     @GetMapping("/cart")
-    public String getCartPage() {
+    public String getCartPage(Model model, HttpServletRequest request) {
+        Long userId = (Long) request.getSession(false).getAttribute("id");
+        User user = new User();
+        user.setId(userId);
+        Cart cart = this.cartService.getCardByUser(user);
+        List<CartDetail> cartDetails = cart.getCartDetails();
+        double priceTotal = 0;
+        for (CartDetail cartDetail : cartDetails) {
+            priceTotal += cartDetail.getPrice() * cartDetail.getQuantity();
+        }
+        model.addAttribute("priceTotal", priceTotal);
+        model.addAttribute("cartDetails", cartDetails);
         return "/client/cart/show";
     }
 }
