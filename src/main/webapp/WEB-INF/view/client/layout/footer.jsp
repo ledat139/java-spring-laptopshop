@@ -51,7 +51,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            <span class="text-light"><a href="https://hoidanit.vn" target="_blank"><i
+                            <span class="text-light"><a href="/" target="_blank"><i
                                         class="fas fa-copyright text-light me-2"></i>TDat</a>, All right
                                 reserved.</span>
                         </div>

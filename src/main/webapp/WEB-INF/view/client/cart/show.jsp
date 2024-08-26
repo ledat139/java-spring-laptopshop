@@ -108,7 +108,8 @@
                                                                 class="form-control form-control-sm text-center border-0"
                                                                 value="${cartDetail.quantity}"
                                                                 data-cart-detail-id="${cartDetail.id}"
-                                                                data-cart-detail-price="${cartDetail.price}">
+                                                                data-cart-detail-price="${cartDetail.price}"
+                                                                data-cart-detail-index="${status.index}">
 
                                                             <div class="input-group-btn">
                                                                 <button
@@ -126,9 +127,15 @@
                                                         </p>
                                                     </td>
                                                     <td>
-                                                        <button class="btn btn-md rounded-circle bg-light border mt-4">
-                                                            <i class="fa fa-times text-danger"></i>
-                                                        </button>
+                                                        <form action="/delete-product-from-cart/${cartDetail.id}"
+                                                            method="post">
+                                                            <input type="hidden" name="${_csrf.parameterName}"
+                                                                value="${_csrf.token}" />
+                                                            <button
+                                                                class="btn btn-md rounded-circle bg-light border mt-4">
+                                                                <i class="fa fa-times text-danger"></i>
+                                                            </button>
+                                                        </form>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -146,7 +153,7 @@
                                                     </h3>
                                                     <div class="d-flex justify-content-between mb-4">
                                                         <h5 class="mb-0 me-4">Tạm tính</h5>
-                                                        <p class="mb-0" data-total-price="${totalPrice}">
+                                                        <p class="mb-0" data-total-price="${priceTotal}">
                                                             <fmt:formatNumber type="number" value="${priceTotal}" />
                                                             đ
                                                         </p>
@@ -157,19 +164,39 @@
                                                             <p class="mb-0">0 đ</p>
                                                         </div>
                                                     </div>
-                                                    <!-- <p class="mb-0 text-end">Shipping to Ukraine.</p> -->
                                                 </div>
                                                 <div
                                                     class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                                                     <h5 class="mb-0 ps-4 me-4">Tổng cộng</h5>
-                                                    <p class="mb-0 pe-4" data-total-price="${totalPrice}">
+                                                    <p class="mb-0 pe-4" data-total-price="${priceTotal}">
                                                         <fmt:formatNumber type="number" value="${priceTotal}" />
                                                         đ
                                                     </p>
                                                 </div>
-                                                <button
-                                                    class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
-                                                    type="button">Xác nhận thanh toán</button>
+                                                <form:form action="/confirm-checkout" method="post" modelAttribute="cart">
+                                                    <input type="hidden" name="${_csrf.parameterName}"
+                                                        value="${_csrf.token}" />
+                                                    <div class="d-none">
+                                                        <c:forEach var="cartDetail" items="${cart.cartDetails}"
+                                                            varStatus="status">
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Id:</label>
+                                                                <input type="text" class="form-control"
+                                                                    value="${cartDetail.id}"
+                                                                    path="cartDetails[${status.index}].id">
+                                                                <label class="form-label">Quantity:</label>
+                                                                <input type="text" class="form-control"
+                                                                    value="${cartDetail.quantity}"
+                                                                    path="cartDetails[${status.index}].quantity">
+                                                            </div>
+                                                        </c:forEach>
+                                                    </div>
+                                                    <button
+                                                        class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
+                                                        type="button">Xác nhận thanh toán
+                                                    </button>
+                                                </form:form>
+
                                             </div>
                                         </div>
                                     </div>

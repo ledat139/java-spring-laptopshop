@@ -97,24 +97,5 @@ public class HomePageController {
         return "redirect:/";
     }
 
-    @GetMapping("/cart")
-    public String getCartPage(Model model, HttpServletRequest request) {
-        Long userId = (Long) request.getSession(false).getAttribute("id");
-        User user = new User();
-        user.setId(userId);
-        Cart cart = this.cartService.getCardByUser(user);
-        double priceTotal = 0;
-        if (cart != null) {
-            List<CartDetail> cartDetails = cart.getCartDetails();
-
-            for (CartDetail cartDetail : cartDetails) {
-                priceTotal += cartDetail.getPrice() * cartDetail.getQuantity();
-            }
-            model.addAttribute("cartDetails", cartDetails);
-        }
-
-        model.addAttribute("priceTotal", priceTotal);
-
-        return "/client/cart/show";
-    }
+   
 }

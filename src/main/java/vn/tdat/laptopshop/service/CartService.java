@@ -21,4 +21,8 @@ public class CartService {
     public Cart handleSaveCart(Cart cart) {
         return this.cartRepository.save(cart);
     }
+
+    public void deleteById(long id) {
+        this.cartRepository.deleteById(id);
+    }
 }

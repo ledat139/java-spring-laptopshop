@@ -1,6 +1,7 @@
 package vn.tdat.laptopshop.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -27,5 +28,20 @@ public class CartDetailService {
 
     public List<CartDetail> getCartDetailByCart(Cart cart) {
         return this.cartDetailRepository.findByCart(cart);
+    }
+
+    public void deleteCartDetailById(long id) {
+        this.cartDetailRepository.deleteById(id);
+    }
+
+    public void updateCartDetailBeforeCheckout(List<CartDetail> cartDetails) {
+        for (CartDetail cartDetail : cartDetails) {
+            Optional<CartDetail> cartDetailTemp = this.cartDetailRepository.findById(cartDetail.getId());
+            if (cartDetailTemp.isPresent()) {
+                CartDetail currentCd = cartDetailTemp.get();
+                currentCd.setQuantity(cartDetail.getQuantity());
+                this.cartDetailRepository.save(currentCd);
+            }
+        }
     }
 }
