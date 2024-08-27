@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import vn.tdat.laptopshop.domain.Cart;
 import vn.tdat.laptopshop.domain.CartDetail;
 import vn.tdat.laptopshop.domain.User;
 import vn.tdat.laptopshop.service.CartDetailService;
 import vn.tdat.laptopshop.service.CartService;
 import org.springframework.web.bind.annotation.RequestBody;
-
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class CartController {
@@ -42,10 +43,10 @@ public class CartController {
                 priceTotal += cartDetail.getPrice() * cartDetail.getQuantity();
             }
             model.addAttribute("cartDetails", cartDetails);
+            model.addAttribute("cart", cart);
         }
 
         model.addAttribute("priceTotal", priceTotal);
-        model.addAttribute("cart", cart);
 
         return "/client/cart/show";
     }
@@ -68,9 +69,37 @@ public class CartController {
     public String confirmCheckout(@ModelAttribute("cart") Cart cart) {
         List<CartDetail> cartDetails = cart.getCartDetails();
         this.cartDetailService.updateCartDetailBeforeCheckout(cartDetails);
-        return "/checkout";
+        return "redirect:/checkout";
     }
-    
-    
+
+    @GetMapping("/checkout")
+    public String getCheckoutPage(Model model, HttpServletRequest request) {
+        Long userId = (Long) request.getSession(false).getAttribute("id");
+        User user = new User();
+        user.setId(userId);
+        Cart cart = this.cartService.getCardByUser(user);
+        double priceTotal = 0;
+        if (cart != null) {
+            List<CartDetail> cartDetails = cart.getCartDetails();
+
+            for (CartDetail cartDetail : cartDetails) {
+                priceTotal += cartDetail.getPrice() * cartDetail.getQuantity();
+            }
+            model.addAttribute("cartDetails", cartDetails);
+            model.addAttribute("cart", cart);
+        }
+
+        model.addAttribute("priceTotal", priceTotal);
+        return "/client/cart/checkout";
+    }
+
+    @PostMapping("/place-order")
+    public String handlePlaceOrder(HttpServletRequest request, @RequestParam("receiverName") String receiverName,
+            @RequestParam("receiverAddress") String receiverAddress,
+            @RequestParam("receiverPhone") String receiverPhone) {
+        HttpSession session = request.getSession(false);
+
+        return "redirect:/";
+    }
 
 }
