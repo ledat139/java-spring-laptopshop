@@ -94,12 +94,20 @@ public class CartController {
     }
 
     @PostMapping("/place-order")
-    public String handlePlaceOrder(HttpServletRequest request, @RequestParam("receiverName") String receiverName,
+    public String handlePlaceOrderPage(HttpServletRequest request, @RequestParam("receiverName") String receiverName,
             @RequestParam("receiverAddress") String receiverAddress,
             @RequestParam("receiverPhone") String receiverPhone) {
         HttpSession session = request.getSession(false);
+        User user = new User();
+        user.setId((long) session.getAttribute("id"));
+        this.cartService.handlePlaceOrder(user, receiverName, receiverAddress, receiverPhone, session);
 
-        return "redirect:/";
+        return "redirect:/thanks";
+    }
+
+    @GetMapping("/thanks")
+    public String getThankPage() {
+        return "client/cart/thanks";
     }
 
 }

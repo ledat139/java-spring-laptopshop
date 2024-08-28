@@ -29,11 +29,11 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<OrderDetail> orderDetails;
 
-    private String recieverName;
+    private String receiverName;
 
-    private String recieverAddress;
+    private String receiverAddress;
 
-    private String recieverPhone;
+    private String receiverPhone;
 
     private String status;
 
@@ -69,28 +69,28 @@ public class Order {
         this.orderDetails = orderDetails;
     }
 
-    public String getRecieverName() {
-        return recieverName;
+    public String getReceiverName() {
+        return receiverName;
     }
 
-    public void setRecieverName(String recieverName) {
-        this.recieverName = recieverName;
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
     }
 
-    public String getRecieverAddress() {
-        return recieverAddress;
+    public String getReceiverAddress() {
+        return receiverAddress;
     }
 
-    public void setRecieverAddress(String recieverAddress) {
-        this.recieverAddress = recieverAddress;
+    public void setReceiverAddress(String receiverAddress) {
+        this.receiverAddress = receiverAddress;
     }
 
-    public String getRecieverPhone() {
-        return recieverPhone;
+    public String getReceiverPhone() {
+        return receiverPhone;
     }
 
-    public void setRecieverPhone(String recieverPhone) {
-        this.recieverPhone = recieverPhone;
+    public void setReceiverPhone(String receiverPhone) {
+        this.receiverPhone = receiverPhone;
     }
 
     public String getStatus() {

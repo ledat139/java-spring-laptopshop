@@ -9,7 +9,6 @@
                             <div class="col-lg-3">
                                 <a  target="_blank">
                                     <h1 class="text-primary mb-0">Laptopshop</h1>
-                                    <p class="text-secondary mb-0">@tdat</p>
                                 </a>
                             </div>
                         </div>
@@ -55,13 +54,7 @@
                                         class="fas fa-copyright text-light me-2"></i>TDat</a>, All right
                                 reserved.</span>
                         </div>
-                        <div class="col-md-6 my-auto text-center text-md-end text-white">
-                            <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-                            <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
-                            <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                            Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed
-                            By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

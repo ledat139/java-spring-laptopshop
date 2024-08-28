@@ -118,29 +118,31 @@
                                 <c:if test="${priceTotal != 0}">
                                     <form:form action="/place-order" method="post" modelAttribute="cart">
                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                                        <div class="row g-4 mt-1">
+                                        <div class="row g-4 mt-1 d-flex justify-content-between">
                                             <div class="col-6">
                                                 <div class="mb-3">
                                                     <h4 class="mt-2">Thông tin người nhận</h4>
                                                     <div class="form-group mt-3">
                                                         <label>Họ tên:</label>
-                                                        <input class="form-control mt-1" type="text" name="recieverName"/>
+                                                        <input class="form-control mt-1" type="text"
+                                                            name="receiverName" />
                                                     </div>
                                                     <div class="form-group mt-3">
                                                         <label>Địa chỉ:</label>
-                                                        <input class="form-control mt-1" type="text" name="recieverAddress"/>
+                                                        <input class="form-control mt-1" type="text"
+                                                            name="receiverAddress" />
                                                     </div>
                                                     <div class="form-group mt-3">
                                                         <label>Số điện thoại:</label>
-                                                        <input class="form-control mt-1" type="text" name="recieverPhone"/>
+                                                        <input class="form-control mt-1" type="text"
+                                                            name="receiverPhone" />
                                                     </div>
                                                     <div class="mt-4"><i class="fa-solid fa-arrow-left m-2"
                                                             style="color: #0d367d;"></i><a href="/cart">Quay lại giỏ
                                                             hàng</a></div>
-
                                                 </div>
                                             </div>
-                                            <div class=" col-sm-7 col-md-7 col-lg-7 col-xl-6">
+                                            <div class="col-sm-7 col-md-7 col-lg-7 col-xl-5">
                                                 <div class="bg-light rounded">
                                                     <div class="p-4">
                                                         <h3 class="mb-4">Thông tin đơn hàng
@@ -169,7 +171,7 @@
                                                     </div>
                                                     <button
                                                         class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
-                                                        type="button">Xác nhận
+                                                        type="submit">Xác nhận
                                                         thanh toán
                                                     </button>
                                                 </div>
