@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,8 +42,21 @@ public class OrderController {
     public String updateOrder(@PathVariable long id, @RequestParam("status") String status) {
         Order order = this.orderService.getOrderById(id);
         order.setStatus(status);
-        this.orderService.savOrder(order);
+        this.orderService.saveOrder(order);
         return "redirect:/admin/order";
     }
 
+    @GetMapping("/admin/order/delete/{id}")
+    public String getDeleteOrderPage(@PathVariable long id, Model model) {
+        model.addAttribute("order", new Order());
+        model.addAttribute("id", id);
+        return "/admin/order/delete";
+    }
+
+    @PostMapping("/admin/order/delete")
+    public String deleteOrder(Model model, @ModelAttribute("order") Order order) {
+        Order orderTemp = this.orderService.getOrderById(order.getId());
+        this.orderService.deleteOrder(orderTemp);
+        return "redirect:/admin/order";
+    }
 }
