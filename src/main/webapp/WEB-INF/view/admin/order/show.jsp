@@ -56,8 +56,6 @@
                                                                     <td>
                                                                         <a href="/admin/order/${order.id}"
                                                                             class="btn btn-success">View</a>
-                                                                        <a href="/admin/order/update/${order.id}"
-                                                                            class="btn btn-warning mx-2">Update</a>
                                                                         <a href="/admin/order/delete/${order.id}"
                                                                             class="btn btn-danger">Delete</a>
                                                                     </td>

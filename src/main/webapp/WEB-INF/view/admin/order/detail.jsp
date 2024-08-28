@@ -77,19 +77,39 @@
                                                 </div>
                                             </div>
 
-                                        
-                                            
-                                            <div class="card col-5 ms-auto ">
-                                                <div class="card-header">
+
+
+                                            <div class="card col-5 ms-auto mt-3 mb-3">
+                                                <div class="card-header h5">
                                                     Thông tin người nhận
                                                 </div>
                                                 <div class="card-body">
-                                                    <h5 class="card-title">Tên người nhận: ${order.receiverName} </h5>
+                                                    <p class="">Tên người nhận: ${order.receiverName} </p>
                                                     <p class="">Địa chỉ người nhận: ${order.receiverAddress}</p>
                                                     <p class="">Sđt người nhận: ${order.receiverPhone}</p>
-                                                    <p class="">Tổng thanh toán: <fmt:formatNumber type="number" value="${order.totalPrice}" />
-                                                    đ</p>
-                                                    <a href="/admin/order" class="btn btn-success">Back</a>
+                                                    <p class="">Tổng thanh toán:
+                                                        <fmt:formatNumber type="number" value="${order.totalPrice}" />
+                                                        đ
+                                                    </p>
+                                                    <form:form action="/admin/order/update/${order.id}" method="post">
+                                                        <div class="mb-3 d-flex align-items-center">
+                                                            <div>Tình trạng đơn hàng:</div>
+                                                            <div class="ms-2">
+                                                                <select class="form-select"
+                                                                    aria-label="Default select example" name="status">
+                                                                    <option selected>${order.status}</option>
+                                                                    <option value="PENDING">Đang xử lý</option>
+                                                                    <option value="SHIPPING">Đang vận chuyển</option>
+                                                                    <option value="COMPLETE">Hoàn thành</option>
+                                                                    <option value="CANCEL">Hủy</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <a href="/admin/order" class="btn btn-success">Back</a>
+                                                        <button class="btn btn-warning">Update</button>
+                                                    </form:form>
                                                 </div>
                                             </div>
                                         </div>

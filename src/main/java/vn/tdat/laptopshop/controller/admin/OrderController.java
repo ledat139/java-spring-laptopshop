@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import vn.tdat.laptopshop.domain.Order;
 import vn.tdat.laptopshop.domain.OrderDetail;
@@ -14,7 +16,7 @@ import vn.tdat.laptopshop.service.OrderService;
 @Controller
 public class OrderController {
     private final OrderService orderService;
-    
+
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
     }
@@ -33,6 +35,14 @@ public class OrderController {
         model.addAttribute("orderDetails", orderDetails);
         model.addAttribute("order", order);
         return "admin/order/detail";
+    }
+
+    @PostMapping("/admin/order/update/{id}")
+    public String updateOrder(@PathVariable long id, @RequestParam("status") String status) {
+        Order order = this.orderService.getOrderById(id);
+        order.setStatus(status);
+        this.orderService.savOrder(order);
+        return "redirect:/admin/order";
     }
 
 }
