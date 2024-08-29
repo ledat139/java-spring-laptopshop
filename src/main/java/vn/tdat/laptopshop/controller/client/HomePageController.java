@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+
 import vn.tdat.laptopshop.domain.Cart;
 import vn.tdat.laptopshop.domain.CartDetail;
+import vn.tdat.laptopshop.domain.Order;
 import vn.tdat.laptopshop.domain.Product;
 import vn.tdat.laptopshop.domain.Role;
 import vn.tdat.laptopshop.domain.User;
@@ -97,5 +100,12 @@ public class HomePageController {
         return "redirect:/";
     }
 
-   
+    @GetMapping("/order-history")
+    public String getOrderHistoryPage(Model model, HttpServletRequest request) {
+        User user = this.userService.getUserById((long) request.getSession().getAttribute("id"));
+        List<Order> orders = user.getOrders();
+        model.addAttribute("orders", orders);
+        return "/client/homepage/orderHistory";
+    }
+
 }

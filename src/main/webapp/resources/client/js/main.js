@@ -154,6 +154,8 @@
         const el = document.getElementById(`cartDetails${index}.quantity`);
         $(el).val(newVal);
 
+     const quantity = document.getElementById("quantity");
+     $(quantity).val(newVal)
 
 
         //get price
@@ -164,7 +166,8 @@
         if (priceElement) {
             const newPrice = +price * newVal;
             priceElement.text(formatCurrency(newPrice.toFixed(2)) + " đ");
-        }
+     }
+     
 
         //update total cart price
         const totalPriceElement = $(`p[data-cart-total-price]`);

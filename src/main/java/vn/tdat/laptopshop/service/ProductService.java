@@ -84,4 +84,51 @@ public class ProductService {
             }
         }
     }
+
+    public void handleAddProductToCartFromProductDetail(long productId, String email, HttpServletRequest request,
+            long quantity) {
+        HttpSession session = request.getSession(false);
+        // check user xem có cart chưa nếu chưa thì add cart
+        User user = this.userService.getUserByEmail(email);
+        if (user != null) {
+            Cart cart = this.cartService.getCardByUser(user);
+            if (cart == null) {
+                Cart otherCart = new Cart();
+                otherCart.setSum(0);
+                otherCart.setUser(user);
+                cart = this.cartService.handleSaveCart(otherCart);
+            }
+            // add card-detail
+            Product product = this.productRepository.findById(productId);
+
+            if (product != null) {
+                // tăng sum trong cart
+                cart.setSum(cart.getSum() + quantity);
+                this.cartService.handleSaveCart(cart);
+                session.setAttribute("sum", cart.getSum());
+
+                // check xem có tồn tại product trong cartdetail chưa nếu có thì tăng quantity
+                CartDetail cartDetailCheck = this.cartDetailService.getCartDetailByCartAndProduct(cart, product);
+                if (cartDetailCheck != null) {
+                    cartDetailCheck.setQuantity(cartDetailCheck.getQuantity() + quantity);
+                    cartDetailCheck.setCart(cart);
+                    this.cartDetailService.handleSaveCartDetail(cartDetailCheck);
+
+                }
+                // nếu không thì tạo mới cartdetail
+                else {
+                    CartDetail cartDetail = new CartDetail();
+                    cartDetail.setCart(cart);
+                    cartDetail.setProduct(product);
+                    cartDetail.setQuantity(quantity);
+                    cartDetail.setPrice(product.getPrice());
+                    this.cartDetailService.handleSaveCartDetail(cartDetail);
+                }
+            }
+        }
+    }
+
+    public long countProduct() {
+        return this.productRepository.count();
+    }
 }

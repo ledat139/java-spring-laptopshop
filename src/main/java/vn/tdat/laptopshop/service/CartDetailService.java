@@ -36,12 +36,15 @@ public class CartDetailService {
 
     public void updateCartDetailBeforeCheckout(List<CartDetail> cartDetails) {
         for (CartDetail cartDetail : cartDetails) {
-            Optional<CartDetail> cartDetailTemp = this.cartDetailRepository.findById(cartDetail.getId());
-            if (cartDetailTemp.isPresent()) {
-                CartDetail currentCd = cartDetailTemp.get();
-                currentCd.setQuantity(cartDetail.getQuantity());
-                this.cartDetailRepository.save(currentCd);
+            CartDetail cartDetailTemp = this.cartDetailRepository.findById(cartDetail.getId());
+            if (cartDetailTemp != null) {
+                cartDetailTemp.setQuantity(cartDetail.getQuantity());
+                this.cartDetailRepository.save(cartDetailTemp);
             }
         }
+    }
+
+    public CartDetail getCartDetailById(long id) {
+        return this.cartDetailRepository.findById(id);
     }
 }

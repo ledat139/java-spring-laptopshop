@@ -16,7 +16,6 @@ import vn.tdat.laptopshop.domain.CartDetail;
 import vn.tdat.laptopshop.domain.User;
 import vn.tdat.laptopshop.service.CartDetailService;
 import vn.tdat.laptopshop.service.CartService;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -53,11 +52,12 @@ public class CartController {
 
     @PostMapping("/delete-product-from-cart/{id}")
     public String deleteProductFromCart(Model model, @PathVariable long id, HttpServletRequest request) {
-        this.cartDetailService.deleteCartDetailById(id);
+        CartDetail cartDetail = this.cartDetailService.getCartDetailById(id);
         User user = new User();
         user.setId((Long) request.getSession(false).getAttribute("id"));
         Cart cart = this.cartService.getCardByUser(user);
-        cart.setSum(cart.getSum() - 1);
+        cart.setSum(cart.getSum() - cartDetail.getQuantity());
+        this.cartDetailService.deleteCartDetailById(id);
         this.cartService.handleSaveCart(cart);
         if (cart.getSum() == 0)
             this.cartService.deleteById(cart.getId());

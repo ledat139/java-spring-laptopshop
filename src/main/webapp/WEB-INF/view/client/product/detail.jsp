@@ -79,7 +79,6 @@
                                                 <h5 class="fw-bold mb-3">
                                                     <fmt:formatNumber type="number" value="${product.price}" /> đ
                                                 </h5>
-
                                                 <div class="d-flex mb-4">
                                                     <i class="fa fa-star text-secondary"></i>
                                                     <i class="fa fa-star text-secondary"></i>
@@ -88,7 +87,6 @@
                                                     <i class="fa fa-star"></i>
                                                 </div>
                                                 <p class="mb-4">${product.shortDesc}</p>
-
                                                 <div class="input-group quantity mb-5" style="width: 100px;">
                                                     <div class="input-group-btn">
                                                         <button
@@ -106,10 +104,17 @@
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <a href="#"
-                                                    class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-                                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                    cart</a>
+                                                <form action="/add-product-from-product-detail/${product.id}"
+                                                    method="post">
+                                                    <input type="hidden" name="${_csrf.parameterName}"
+                                                        value="${_csrf.token}" />
+                                                    <input type="hidden" name="quantity" id="quantity" value="1">
+                                                    <button type="submit"
+                                                        class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
+                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                                        cart</button>
+                                                </form>
+
                                             </div>
                                             <div class="col-lg-12">
                                                 <nav>

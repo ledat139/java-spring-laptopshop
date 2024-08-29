@@ -38,4 +38,8 @@ public class OrderService {
         }
         this.orderRepository.delete(order);
     }
+
+    public long countOrder() {
+        return this.orderRepository.count();
+    }
 }
