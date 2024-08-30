@@ -1,6 +1,7 @@
 package vn.tdat.laptopshop.controller.admin;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,7 +34,11 @@ public class ProductController {
     }
 
     @GetMapping("/admin/product")
-    public String getDashBoard(Model model, @RequestParam("page") int page) {
+    public String getDashBoard(Model model, @RequestParam("page") Optional<String> pageOptional) {
+        int page = 1;
+        if (pageOptional.isPresent()) {
+            page = Integer.parseInt(pageOptional.get());
+        }
         Pageable pageable = PageRequest.of(page - 1, 5);
         Page<Product> products = this.productService.getAllProduct(pageable);
         List<Product> listProducts = products.getContent();
