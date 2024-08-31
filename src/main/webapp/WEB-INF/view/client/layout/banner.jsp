@@ -4,27 +4,24 @@
             <div class="container-fluid py-5 mb-5 hero-header">
                 <div class="container py-5">
                     <div class="row g-5 align-items-center">
-                        <div class="col-md-12 col-lg-7">
-                            <h4 class="mb-3 text-secondary">100% Sản Phẩm Chính Hãng</h4>
-                            <h1 class="mb-5 display-3 text-primary">Hàng cao cấp<br /> Rẻ vô địch</h1>
+                        <div class="col-md-12 col-lg-7 ">
+                            <h4 class="mb-3 text-secondary mt-5">100% Sản Phẩm Chính Hãng</h4>
+                            <h4 class="mb-5 display-3 text-primary">Hàng cao cấp<br />provip</h4>
                         </div>
-                        <div class="col-md-12 col-lg-5">
+                        <div class="col-md-12 col-lg-5 mt-5">
                             <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
-                                <div class="carousel-inner" role="listbox">
+                                <div class="carousel-inner mt-5" role="listbox">
                                     <div class="carousel-item active rounded">
-                                        <img src="/client/img/hero-img-1.png"
+                                        <img src="/client/img/laptop1.jpg" style="object-fit: cover;"
                                             class="img-fluid w-100 h-100 bg-secondary rounded" alt="First slide">
-                                        <a href="#" class="btn px-4 py-2 text-white rounded">Gaming</a>
                                     </div>
                                     <div class="carousel-item rounded">
-                                        <img src="/client/img/hero-img-3.png" class="img-fluid w-100 h-100 rounded"
+                                        <img src="/client/img/laptop2.jpg" class="img-fluid w-100 h-100 rounded"
                                             alt="Second slide">
-                                        <a href="#" class="btn px-4 py-2 text-white rounded">Laptop</a>
                                     </div>
                                     <div class="carousel-item rounded">
-                                        <img src="/client/img/hero-img-2.png" class="img-fluid w-100 h-100 rounded"
+                                        <img src="/client/img/laptop3.jpg" class="img-fluid w-100 h-100 rounded"
                                             alt="Second slide">
-                                        <a href="#" class="btn px-4 py-2 text-white rounded">Phụ kiện</a>
                                     </div>
                                 </div>
                                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselId"

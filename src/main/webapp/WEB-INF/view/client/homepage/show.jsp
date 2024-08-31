@@ -16,7 +16,7 @@
                     <link rel="preconnect" href="https://fonts.googleapis.com">
                     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
                     <link
-                        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
+                        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
                         rel="stylesheet">
 
                     <!-- Icon Font Stylesheet -->
@@ -96,7 +96,7 @@
                                                                             <p style="font-size: 13px;">
                                                                                 ${product.shortDesc}</p>
                                                                             <div
-                                                                                class="d-flex flex-lg-wrap justify-content-center">
+                                                                                class="d-flex flex-lg-wrap justify-content-center flex-column">
                                                                                 <p style="text-align: center; width: 100%;font-size: 16px;"
                                                                                     class="text-dark  fw-bold mb-2">
                                                                                     <fmt:formatNumber type="number"

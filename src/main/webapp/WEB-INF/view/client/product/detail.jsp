@@ -80,10 +80,10 @@
                                                     <fmt:formatNumber type="number" value="${product.price}" /> đ
                                                 </h5>
                                                 <div class="d-flex mb-4">
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
                                                     <i class="fa fa-star"></i>
                                                 </div>
                                                 <p class="mb-4">${product.shortDesc}</p>

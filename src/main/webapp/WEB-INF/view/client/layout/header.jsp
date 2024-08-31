@@ -1,6 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+            <!-- Google Web Fonts -->
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+                rel="stylesheet">
             <!-- Navbar start -->
             9<div class="container-fluid fixed-top shadow">
                 <div class="container px-0">
@@ -14,9 +19,12 @@
                         </button>
                         <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                             <div class="navbar-nav mx-5">
-                                <a href="/" class="nav-item nav-link active">Trang Chủ</a>
-                                <a href="/products" class="nav-item nav-link">Sản Phẩm</a>
-
+                                <a href="/" class="nav-item nav-link active"
+                                    style="font-weight: 700; font-size: 18px;">Trang Chủ</a>
+                                <a href="/products" class="nav-item nav-link"
+                                    style="font-weight: 700; font-size: large;">Sản Phẩm</a>
+                                <a href="" class="nav-item nav-link" style="font-weight: 700; font-size: large;">Liên
+                                    hệ</a>
                             </div>
                             <c:if test="${not empty pageContext.request.userPrincipal}">
                                 <div class="d-flex m-3 me-0 mx-auto">
