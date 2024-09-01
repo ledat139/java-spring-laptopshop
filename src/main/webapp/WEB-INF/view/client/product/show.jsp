@@ -254,34 +254,50 @@
                                                                 </div>
                                                             </div>
                                                         </c:forEach>
-                                                        <div class="col-12">
-                                                            <div class="pagination d-flex justify-content-center mt-5">
+                                                        <nav aria-label="Page navigation example mb-4">
+                                                            <ul class="pagination justify-content-center d-flex">
                                                                 <li class="page-item">
-                                                                    <a class="${1 eq currentPage ? 'disabled page-link' : 'page-link'}"
-                                                                        href="/products?page=${currentPage - 1}"
-                                                                        aria-label="Previous">
-                                                                        <span aria-hidden="true">&laquo;</span>
-                                                                    </a>
+                                                                    <c:if test="${1 == currentPage}">
+                                                                        <a class="page-link" onclick="return false"
+                                                                            aria-label="Previous">
+                                                                            <span aria-hidden="true">&laquo;</span>
+                                                                        </a>
+                                                                    </c:if>
+                                                                    <c:if test="${1 != currentPage}">
+                                                                        <a class="page-link"
+                                                                            href="/products?page=${currentPage - 1}"
+                                                                            aria-label="Previous">
+                                                                            <span aria-hidden="true">&laquo;</span>
+                                                                        </a>
+                                                                    </c:if>
                                                                 </li>
                                                                 <c:forEach begin="0" end="${totalPages - 1}"
                                                                     varStatus="loop">
                                                                     <li class="page-item">
-                                                                        <a class="${(loop.index + 1) eq currentPage ? 'active page-link' : 'page-link'}"
+                                                                        <a class="${loop.index + 1 eq currentPage ? 'active page-link' : 'page-link'}"
                                                                             href="/products?page=${loop.index + 1}">
                                                                             ${loop.index + 1}
                                                                         </a>
                                                                     </li>
                                                                 </c:forEach>
-                                                                <li class="page-item">
-                                                                    <a class="${totalPages eq currentPage ? 'disabled page-link' : 'page-link'}"
-                                                                        href="/products?page=${currentPage + 1}"
-                                                                        aria-label="Next">
-                                                                        <span aria-hidden="true">&raquo;</span>
-                                                                    </a>
-                                                                </li>
 
-                                                            </div>
-                                                        </div>
+                                                                <li class="page-item">
+                                                                    <c:if test="${totalPages == currentPage}">
+                                                                        <a class="page-link" onclick="return false"
+                                                                            aria-label="Previous">
+                                                                            <span aria-hidden="true">&raquo;</span>
+                                                                        </a>
+                                                                    </c:if>
+                                                                    <c:if test="${totalPages != currentPage}">
+                                                                        <a class="page-link"
+                                                                            href="/products?page=${currentPage + 1}"
+                                                                            aria-label="Previous">
+                                                                            <span aria-hidden="true">&raquo;</span>
+                                                                        </a>
+                                                                    </c:if>
+                                                                </li>
+                                                            </ul>
+                                                        </nav>
                                                     </div>
                                                 </div>
                                             </div>

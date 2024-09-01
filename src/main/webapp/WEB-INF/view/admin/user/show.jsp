@@ -71,12 +71,12 @@
                                         <nav aria-label="Page navigation example mb-4">
                                             <ul class="pagination justify-content-center">
                                                 <li class="page-item">
-                                                    <button
+                                                    <a
                                                         class="${1 eq currentPage ? 'disabled page-link' : 'page-link'}"
                                                         href="/admin/user?page=${currentPage - 1}"
                                                         aria-label="Previous">
                                                         <span aria-hidden="true">&laquo;</span>
-                                                    </button>
+                                                    </a>
                                                 </li>
                                                 <c:forEach begin="0" end="${totalPages - 1}" varStatus="loop">
                                                     <li class="page-item">
