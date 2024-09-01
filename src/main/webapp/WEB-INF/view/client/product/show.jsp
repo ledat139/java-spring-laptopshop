@@ -54,11 +54,16 @@
                         <!-- Laptop Shop -->
                         <div class="container-fluid fruite" style="padding-top: 100px;">
                             <div class="container">
-                                <div class="tab-class text-center">
-                                    <div class="row g-4">
-                                        <div class="col-lg-4 text-start">
-                                            <h1>Sản phẩm</h1>
-                                        </div>
+                                <div class="tab-class">
+                                    <div>
+                                        <nav aria-label="breadcrumb">
+                                            <ol class="breadcrumb">
+                                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                                <li class="breadcrumb-item active" aria-current="page">Sản phẩm
+
+                                                </li>
+                                            </ol>
+                                        </nav>
                                     </div>
 
                                     <div class="tab-content">
@@ -72,7 +77,7 @@
                                                                 <input class="form-check-input" type="checkbox"
                                                                     id="factory-1" value="APPLE">
                                                                 <label class="form-check-label"
-                                                                    for="factory-1">Apple</label>
+                                                                    for="factory-1">MSI</label>
                                                             </div>
                                                             <div class="form-check form-check-inline">
                                                                 <input class="form-check-input" type="checkbox"
@@ -106,7 +111,6 @@
                                                                 <label class="form-check-label"
                                                                     for="factory-6">Acer</label>
                                                             </div>
-
                                                         </div>
                                                         <div class="col-12">
                                                             <div class="mb-2"><b>Mục đích sử dụng</b></div>
@@ -127,8 +131,7 @@
                                                             <div class="form-check form-check-inline">
                                                                 <input class="form-check-input" type="checkbox"
                                                                     id="target-3" value="THIET-KE-DO-HOA">
-                                                                <label class="form-check-label" for="target-3">Thiết kế
-                                                                    đồ
+                                                                <label class="form-check-label" for="target-3">Đồ
                                                                     họa</label>
                                                             </div>
                                                             <div class="form-check form-check-inline">
@@ -211,7 +214,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-md-8">
-                                                    <div class="row g-4 d-flex">
+                                                    <div class="row g-4 d-flex text-center">
                                                         <c:forEach var="product" items="${products}">
                                                             <div class="col-md-6 col-lg-4 col-xl-4">
                                                                 <div class="rounded position-relative fruite-item">
@@ -251,6 +254,34 @@
                                                                 </div>
                                                             </div>
                                                         </c:forEach>
+                                                        <div class="col-12">
+                                                            <div class="pagination d-flex justify-content-center mt-5">
+                                                                <li class="page-item">
+                                                                    <a class="${1 eq currentPage ? 'disabled page-link' : 'page-link'}"
+                                                                        href="/products?page=${currentPage - 1}"
+                                                                        aria-label="Previous">
+                                                                        <span aria-hidden="true">&laquo;</span>
+                                                                    </a>
+                                                                </li>
+                                                                <c:forEach begin="0" end="${totalPages - 1}"
+                                                                    varStatus="loop">
+                                                                    <li class="page-item">
+                                                                        <a class="${(loop.index + 1) eq currentPage ? 'active page-link' : 'page-link'}"
+                                                                            href="/products?page=${loop.index + 1}">
+                                                                            ${loop.index + 1}
+                                                                        </a>
+                                                                    </li>
+                                                                </c:forEach>
+                                                                <li class="page-item">
+                                                                    <a class="${totalPages eq currentPage ? 'disabled page-link' : 'page-link'}"
+                                                                        href="/products?page=${currentPage + 1}"
+                                                                        aria-label="Next">
+                                                                        <span aria-hidden="true">&raquo;</span>
+                                                                    </a>
+                                                                </li>
+
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
