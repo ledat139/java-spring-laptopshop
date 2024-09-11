@@ -36,7 +36,7 @@
                                                     <h3>Product detail with ID: ${id}</h3>
                                                 </div>
                                                 <hr>
-                                                <div class="card" style="width: 60%;">
+                                                <div class="card m-auto" style="width: 90%;">
                                                     <div class="list-group list-group-flush">
                                                         <img style=" object-fit: cover;"
                                                             src="/img/product/${product.image}" alt="">

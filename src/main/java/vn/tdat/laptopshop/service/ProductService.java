@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,7 +13,9 @@ import vn.tdat.laptopshop.domain.Cart;
 import vn.tdat.laptopshop.domain.CartDetail;
 import vn.tdat.laptopshop.domain.Product;
 import vn.tdat.laptopshop.domain.User;
+import vn.tdat.laptopshop.domain.DTO.ProductCriteriaDTO;
 import vn.tdat.laptopshop.repository.ProductRepository;
+import vn.tdat.laptopshop.service.specification.ProductSpecs;
 
 @Service
 public class ProductService {
@@ -29,12 +32,62 @@ public class ProductService {
         this.cartDetailService = cartDetailService;
     }
 
+    public Page<Product> getProductWithSpec(Pageable pageable, ProductCriteriaDTO productCriteriaDTO) {
+        if (productCriteriaDTO.getPage() == null &&
+                productCriteriaDTO.getFactory() == null
+                && productCriteriaDTO.getTarget() == null
+                && productCriteriaDTO.getPrice() == null)
+            return this.productRepository.findAll(pageable);
+
+        Specification<Product> combinedSpec = Specification.where(null);
+        if (productCriteriaDTO.getFactory() != null && productCriteriaDTO.getFactory().isPresent()) {
+            Specification<Product> currentSpec = ProductSpecs.inFactory(productCriteriaDTO.getFactory().get());
+            combinedSpec = combinedSpec.and(currentSpec);
+        }
+        if (productCriteriaDTO.getTarget() != null && productCriteriaDTO.getTarget().isPresent()) {
+            Specification<Product> currentSpec = ProductSpecs.inTarget(productCriteriaDTO.getTarget().get());
+            combinedSpec = combinedSpec.and(currentSpec);
+        }
+        if (productCriteriaDTO.getPrice() != null && productCriteriaDTO.getPrice().isPresent()) {
+            combinedSpec = combinedSpec.and(this.getProductsWithPriceRange(productCriteriaDTO.getPrice().get())); 
+        }
+
+        return this.productRepository.findAll(combinedSpec, pageable);
+    }
+
     public Product createProduct(Product product) {
         return this.productRepository.save(product);
     }
 
     public Page<Product> getAllProduct(Pageable pageable) {
         return this.productRepository.findAll(pageable);
+    }
+
+    public Specification<Product> getProductsWithPriceRange(List<String> price) {
+        Specification<Product> combinedSpec = Specification.where(null);
+        for (String p : price) {
+            double min = 0;
+            double max = 0;
+            switch (p) {
+                case "10-15-trieu":
+                    min = 10000000;
+                    max = 15000000;
+                    break;
+                case "15-20-trieu":
+                    min = 15000000;
+                    max = 20000000;
+                    break;
+                case "tren-20-trieu":
+                    min = 20000000;
+                    max = 100000000;
+                    break;
+            }
+            if (max != 0) {
+                Specification<Product> itemSpec = ProductSpecs.priceRange(min, max);
+                combinedSpec = combinedSpec.or(itemSpec);
+            }
+        }
+        return combinedSpec;
     }
 
     public Product getProductById(long id) {

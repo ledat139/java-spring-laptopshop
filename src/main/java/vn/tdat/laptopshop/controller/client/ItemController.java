@@ -1,11 +1,14 @@
 package vn.tdat.laptopshop.controller.client;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import vn.tdat.laptopshop.domain.Product;
+import vn.tdat.laptopshop.domain.Product_;
+import vn.tdat.laptopshop.domain.DTO.ProductCriteriaDTO;
 import vn.tdat.laptopshop.service.ProductService;
 
 @Controller
@@ -43,17 +48,29 @@ public class ItemController {
     }
 
     @GetMapping("/products")
-    public String getProductsPage(Model model, @RequestParam("page") Optional<String> pageOptional) {
+    public String getProductsPage(Model model, ProductCriteriaDTO productCriteriaDTO, HttpServletRequest request) {
         int page = 1;
-        if (pageOptional.isPresent()) {
-            page = Integer.parseInt(pageOptional.get());
+        if (productCriteriaDTO.getPage() != null && productCriteriaDTO.getPage().isPresent()) {
+            page = Integer.parseInt(productCriteriaDTO.getPage().get());
         }
         Pageable pageable = PageRequest.of(page - 1, 6);
-        Page<Product> products = this.productService.getAllProduct(pageable);
+        if (productCriteriaDTO.getSort() != null && productCriteriaDTO.getSort().isPresent()) {
+            if (productCriteriaDTO.getSort().get().equals("gia-tang-dan")) {
+                pageable = PageRequest.of(page - 1, 6, Sort.by(Product_.PRICE).ascending());
+            } else if (productCriteriaDTO.getSort().get().equals("gia-giam-dan")) {
+                pageable = PageRequest.of(page - 1, 6, Sort.by(Product_.PRICE).descending());
+            }
+        }
+        String qs = request.getQueryString();
+        if (qs != null) {
+            qs = qs.replace("page=" + page, "");
+        }
+        Page<Product> products = this.productService.getProductWithSpec(pageable, productCriteriaDTO);
         List<Product> listProducts = products.getContent();
         model.addAttribute("products", listProducts);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", products.getTotalPages());
+        model.addAttribute("queryString", qs);
         return "/client/product/show";
     }
 
